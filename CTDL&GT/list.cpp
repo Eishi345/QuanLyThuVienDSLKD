@@ -27,7 +27,7 @@ void initList(SNode** head)
 }
 
    //Thêm bạn đọc vào cuối danh sách liên kết
-void addReader(SNode** head, Reader r) 
+void insertTail(SNode** head, Reader r) 
 {
     SNode* p = createSNode(r);
 
