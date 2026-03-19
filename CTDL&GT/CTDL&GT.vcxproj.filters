@@ -24,6 +24,9 @@
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SV3-NguyenTranAnhKhoa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="list.cpp">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SV3-NguyenTranAnhKhoa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

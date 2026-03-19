@@ -126,11 +126,13 @@
     <ClInclude Include="list.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="SV3-NguyenTranAnhKhoa.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="list.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="SV3-NguyenTranAnhKhoa.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
