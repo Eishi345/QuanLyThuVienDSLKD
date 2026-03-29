@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <conio.h>
 #include <string.h>
 #include <time.h>
@@ -73,24 +73,29 @@ void NhapSach(SList sl, Book* a)
 {
 	do
 	{
-		printf("Nhap ma sach: ");
+		printf("\nNhap ma sach: ");
 		fflush(stdin);
-		gets(a->MaSach);
+		fgets(a->MaSach, sizeof(a->MaSach), stdin);
+		a->MaSach[strcspn(a->MaSach, "\n")] = 0;
 
 		if (CheckTrungMa(sl, a->MaSach))
 			printf("Ma sach bi trung! Vui long nhap lai!\n");
 	} while (CheckTrungMa(sl, a->MaSach));
-	printf("Nhap ten sach: ");
-	gets(a->TenSach);
+	printf("\nNhap ten sach: ");
+	fgets(a->TenSach, sizeof(a->TenSach), stdin);
+	a->TenSach[strcspn(a->TenSach, "\n")] = 0;
 
-	printf("Nhap tac gia: ");
-	gets(a->TacGia);
+	printf("\nNhap tac gia: ");
+	fgets(a->TacGia, sizeof(a->TacGia), stdin);
+	a->TacGia[strcspn(a->TacGia, "\n")] = 0;
 
-	printf("Nhap nam xuat ban sach: ");
-	scanf_s("%d", &a->NamXB);
+	printf("\nNhap nam xuat ban sach: ");
+	scanf("%d", &a->NamXB);
+	getchar();
 
-	printf("Nhap so luong sach: ");
-	scanf_s("%d", &a->SoLuong);
+	printf("\nNhap so luong sach: ");
+	scanf("%d", &a->SoLuong);
+	getchar();
 }
 
 // Them dau
@@ -238,7 +243,8 @@ void menu(SList* sl)
 		printf("\n7. Sap xep danh sach sach theo nam\n");
 		printf("\n0. Thoat chuong trinh\n");
 		printf("\nNhap lua chon cua ban(0-5): \n");
-		scanf_s("%d", &luachon);
+		scanf("%d", &luachon);
+		getchar();
 
 		switch (luachon)
 		{
@@ -247,34 +253,37 @@ void menu(SList* sl)
 			insertHead(sl, createSNode(a));
 			break;
 		case 2:
-			NhapSach(&a);
+			NhapSach(*sl,&a);
 			insertTail(sl, createSNode(a));
 			break;
 		case 3:
 			ShowSList(*sl);
 			break;
 		case 4:
-			printf("Nhap ma sach can tim: ");
-			fflush(stdin);
-			gets(ma);
+			printf("\nNhap ma sach can tim: ");
+			getchar();
+			fgets(ma, sizeof(ma), stdin);
+			ma[strcspn(ma, "\n")] = 0;
 			if (findSNode(*sl, ma))
 				printf("Da tim thay!!!\n");
 			else
 				printf("Khong tim thay ma!. Vui long nhap lai ma!!!\n");
 			break;
 		case 5:
-			printf("Nhap ma sach can xoa: ");
-			fflush(stdin);
-			gets(ma);
+			printf("\nNhap ma sach can xoa: ");
+			getchar();
+			fgets(ma, sizeof(ma), stdin);
+			ma[strcspn(ma, "\n")] = 0;
 			if (deleteSNode(sl, ma))
 				printf("Da xoa thanh cong!!!\n");
 			else
-				printf("Khong tim thay ma can xoa!. Vui long nhap lai ma!!!");
+				printf("\nKhong tim thay ma can xoa!. Vui long nhap lai ma!!!");
 			break;
 		case 6:
-			printf("Nhap ten sach can tim: ");
-			fflush(stdin);
-			gets(ten);
+			printf("\nNhap ten sach can tim: ");
+			getchar();
+			fgets(ten, sizeof(ten), stdin);
+			ten[strcspn(ten, "\n")] = 0;
 			TimTheoTen(*sl, ten);
 			break;
 		case 7:
