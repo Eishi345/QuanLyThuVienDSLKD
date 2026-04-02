@@ -68,7 +68,7 @@ struct QueueChoMuon {
 };
 
 // ---------------------------------------------------------
-// 4. CẤU TRÚC SÁCH (Quản lý bằng DSLK đơn)
+// 4. CẤU TRÚC SÁCH (Quản lý bằng DANH SÁCH ĐẶC - Mảng động)
 // ---------------------------------------------------------
 struct Sach {
     char ISBN[20];
@@ -84,17 +84,11 @@ struct Sach {
     int TrangThai; // 1: Đang sử dụng, 0: Đánh dấu hủy
 };
 
-// Node cho DSLK đơn quản lý các đầu sách
-struct NodeSach {
-    Sach data;
-    NodeSach* next;
-};
-
-// Danh sách liên kết đơn quản lý các đầu sách
+// Danh sách đặc (Mảng động) quản lý các đầu sách
 struct DanhSachSach {
-    NodeSach* head;
-    NodeSach* tail;
-    int soLuong;
+    Sach* arr;       // Con trỏ trỏ đến mảng động chứa các sách
+    int capacity;    // Sức chứa tối đa hiện tại của mảng (để cấp phát thêm khi đầy)
+    int soLuong;     // Số lượng đầu sách thực tế đang có
 };
 
 #endif // STRUCTS_H
