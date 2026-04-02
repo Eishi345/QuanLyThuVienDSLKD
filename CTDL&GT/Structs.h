@@ -15,7 +15,7 @@ struct Date {
 
 struct PhieuMuon {
     char MaPhieu[20];
-    char MaBanDoc[20];
+    char MaThe[20]; //Tức mã bạn đọc
     char MaSach[20];
     Date NgayMuon;
     Date HanTra;
@@ -63,8 +63,8 @@ struct NodeQueue {
 
 // Hàng đợi chờ mượn (FIFO)
 struct QueueChoMuon {
-    NodeQueue* front;
-    NodeQueue* rear;
+    NodeQueue* head;
+    NodeQueue* tail;
 };
 
 // ---------------------------------------------------------

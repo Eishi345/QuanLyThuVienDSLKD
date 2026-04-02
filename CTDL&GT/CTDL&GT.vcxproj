@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Structs.h" />
+    <ClInclude Include="SV3-NguyenTranAnhKhoa.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SV1_AnhTho.cpp" />
