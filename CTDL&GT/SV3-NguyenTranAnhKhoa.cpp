@@ -1,4 +1,5 @@
 #include "Structs.h"
+#include <time.h>
 
 //Tao hang cho muon sach
 int initQueueDSLK(QueueChoMuon& q) {
@@ -40,6 +41,36 @@ int deQueue(QueueChoMuon& q, char bd[]) {
 }
 
 //Muon sach
+NodePhieuMuon* createNodePhieuMuon(PhieuMuon pm) {
+	NodePhieuMuon* newNode = new NodePhieuMuon;
+
+	if (newNode == NULL) {
+		printf("Tao phieu muon that bai.\n");
+		return NULL;
+	}
+
+	newNode->data = pm;
+	newNode->next = NULL;
+	return newNode;
+}
+
+void taoMaPhieu(char* maPhieu) {
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+
+	sprintf(maPhieu, "PM04%d02%d02%d02%d02%d02%d",
+		tm.tm_year,
+		tm.tm_mon,
+		tm.tm_mday,
+		tm.tm_hour,
+		tm.tm_min,
+		tm.tm_sec
+	);
+}
+
+int themPhieuMuon(BanDoc& bd, PhieuMuon pmMoi) {
+}
+
 int muonSach(QueueChoMuon& q, DanhSachBanDoc& p) {
 	char MaThe[20];
 	char ISBN[20];
@@ -54,6 +85,7 @@ int muonSach(QueueChoMuon& q, DanhSachBanDoc& p) {
 	NodeBanDoc* current = p.head;
 	while (current != NULL) {
 		if (!strcmp(current->data.MaThe, MaThe)) break;
+		current = current->next;
 	}
 
 	if (!current->data.TrangThai) {
