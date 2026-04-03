@@ -71,7 +71,7 @@ struct QueueChoMuon {
 // 4. CẤU TRÚC SÁCH (Quản lý bằng DANH SÁCH ĐẶC - Mảng động)
 // ---------------------------------------------------------
 struct Sach {
-    char ISBN[20];
+    char ISBN[20]; //Nghĩa là Mã Sách
     char TenSach[100];
     char TacGia[50];
     char NXB[50];
