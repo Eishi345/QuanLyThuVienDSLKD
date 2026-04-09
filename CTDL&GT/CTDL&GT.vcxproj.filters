@@ -29,5 +29,8 @@
     <ClCompile Include="SV1_AnhTho.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SV2.TuanVu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

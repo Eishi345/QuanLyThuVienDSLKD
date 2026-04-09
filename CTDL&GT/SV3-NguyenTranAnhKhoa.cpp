@@ -1,8 +1,32 @@
 #include "Structs.h"
 #include <time.h>
 
+//Lay thoi gian hien tai
+Date layNgayHienTai() {
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+
+	Date d;
+	d.ngay = tm.tm_mday;
+	d.thang = tm.tm_mon + 1;
+	d.nam = tm.tm_year + 1900;
+	return d;
+}
+
+//Tinh han tra sach
+Date tinhHanTra(int soNgayMuon = 14) {
+	time_t t = time(NULL) + (soNgayMuon * 24 * 60 * 60);
+	struct tm tm = *localtime(&t);
+
+	Date d;
+	d.ngay = tm.tm_mday;
+	d.thang = tm.tm_mon + 1;
+	d.nam = tm.tm_year + 1900;
+	return d;
+}
+
 //Tao hang cho muon sach
-int initQueueDSLK(QueueChoMuon& q) {
+void initQueueDSLK(QueueChoMuon& q) {
 	q.head = NULL;
 	q.tail = NULL;
 }
@@ -23,6 +47,7 @@ int enQueue(QueueChoMuon& q, NodeQueue* p) {
 		q.tail->next = p;
 	}
 	q.tail = p;
+	return 1;
 }
 
 //Xoa khoi hang cho
@@ -69,9 +94,20 @@ void taoMaPhieu(char* maPhieu) {
 }
 
 int themPhieuMuon(BanDoc& bd, PhieuMuon pmMoi) {
+	NodePhieuMuon* newNode = createNodePhieuMuon(pmMoi);
+
+	if (newNode == NULL) {
+		printf("Loi tao phieu muon.\n");
+		return 0;
+	}
+
+	newNode->next = bd.dSPhieuMuon;
+	bd.dSPhieuMuon->next = newNode;
+	bd.SoSachDangMuon++;
+	return 1;
 }
 
-int muonSach(QueueChoMuon& q, DanhSachBanDoc& p) {
+int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p) {
 	char MaThe[20];
 	char ISBN[20];
 
@@ -88,6 +124,11 @@ int muonSach(QueueChoMuon& q, DanhSachBanDoc& p) {
 		current = current->next;
 	}
 
+	if (current == NULL) {
+		printf("Khong tim thay ban doc!\n");
+		return 0;
+	}
+
 	if (!current->data.TrangThai) {
 		printf("The bi khoa hoac ban doc khong con hoat dong.\n");
 		return 0;
@@ -96,5 +137,49 @@ int muonSach(QueueChoMuon& q, DanhSachBanDoc& p) {
 	if (current->data.SoSachDangMuon >= 5) {
 		printf("Ban doc da dat gioi han muon toi da la 5 cuon!\n");
 		return 0;
+	}
+
+	int indexSach = -1;
+	for (int i = 0; i < dsSach.capacity; i++) {
+		if (!strcmp(ISBN, dsSach.arr[i].ISBN) && dsSach.arr[i].TrangThai == 1) {
+			indexSach = i;
+			break;
+		}
+	}
+
+	if (indexSach == -1) {
+		printf("Khong tim thay sach trong kho hoac sach da bi xoa!\n");
+	}
+
+	Sach& SachMuon = dsSach.arr[indexSach];
+	if (SachMuon.SoLuongConLai > 0) {
+		PhieuMuon pmMoi;
+		taoMaPhieu(pmMoi.MaPhieu);
+		strcpy(pmMoi.MaThe, MaThe);
+		strcpy(pmMoi.MaSach, SachMuon.ISBN);
+		pmMoi.NgayMuon = layNgayHienTai();
+		pmMoi.HanTra = tinhHanTra();
+		pmMoi.TrangThai = 0;
+
+		if (themPhieuMuon(current->data, pmMoi)) {
+			SachMuon.SoLuongConLai--;
+			printf("Muon sach thanh cong! Ma phieu muon cua ban la: %s", pmMoi.MaPhieu);
+			return 1;
+		}
+		else return 0;
+	}
+	else {
+		NodeQueue* nodeCho = new NodeQueue;
+		strcpy(nodeCho->MaBanDoc, MaThe);
+		nodeCho->next = NULL;
+
+		if (enQueue(SachMuon.queueCho, nodeCho)) {
+			printf("Sach hien tai da het, ban doc %s da duoc them vao hang cho.\n", current->data.TenBanDoc);
+			return 1;
+		}
+		else {
+			printf("Loi! Khong the them vao hang cho.\n");
+			return 0;
+		}
 	}
 }
