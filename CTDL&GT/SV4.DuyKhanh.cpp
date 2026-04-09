@@ -8,7 +8,7 @@
 
 
 // =======================================================
-// 📌 1. SO SÁNH NGÀY
+//     SO SÁNH NGÀY
 // =======================================================
 int soSanhDate(Date a, Date b) {
     if (a.nam != b.nam) return a.nam - b.nam;
@@ -17,7 +17,7 @@ int soSanhDate(Date a, Date b) {
 }
 
 // =======================================================
-// 📌 2. IN BẠN ĐỌC QUÁ HẠN
+//     IN BẠN ĐỌC QUÁ HẠN
 // =======================================================
 void inBanDocQuaHan(DanhSachBanDoc dsBD, Date ngayHienTai) {
     printf("\n=== BAN DOC QUA HAN ===\n");
@@ -47,7 +47,7 @@ void inBanDocQuaHan(DanhSachBanDoc dsBD, Date ngayHienTai) {
 }
 
 // =======================================================
-// 📌 3. ĐẾM SỐ LẦN MƯỢN SÁCH
+//     ĐẾM SỐ LẦN MƯỢN SÁCH
 // =======================================================
 int demSoLanMuon(DanhSachBanDoc dsBD, char maSach[]) {
     int count = 0;
@@ -62,7 +62,7 @@ int demSoLanMuon(DanhSachBanDoc dsBD, char maSach[]) {
 }
 
 // =======================================================
-// 📌 4. SẮP XẾP SÁCH THEO LƯỢT MƯỢN
+//      SẮP XẾP SÁCH THEO LƯỢT MƯỢN
 // =======================================================
 void sortSachTheoMuon(DanhSachSach* dsSach, DanhSachBanDoc dsBD) {
     for (int i = 0; i < dsSach->soLuong - 1; i++) {
@@ -81,7 +81,7 @@ void sortSachTheoMuon(DanhSachSach* dsSach, DanhSachBanDoc dsBD) {
 }
 
 // =======================================================
-// 📌 5. TOP 10 SÁCH
+//     TOP 10 SÁCH
 // =======================================================
 void top10Sach(DanhSachSach dsSach, DanhSachBanDoc dsBD) {
     sortSachTheoMuon(&dsSach, dsBD);
@@ -101,7 +101,7 @@ void top10Sach(DanhSachSach dsSach, DanhSachBanDoc dsBD) {
 }
 
 // =======================================================
-// 📌 6. THỐNG KÊ THEO TÁC GIẢ / NXB
+//     THỐNG KÊ THEO TÁC GIẢ / NXB
 // =======================================================
 void thongKeTheoTacGia(DanhSachSach dsSach, char tacGia[]) {
     printf("\nTac gia: %s\n", tacGia);
@@ -122,7 +122,7 @@ void thongKeTheoNXB(DanhSachSach dsSach, char nxb[]) {
 }
 
 // =======================================================
-// 📌 7. GHI LOG
+//       GHI LOG
 // =======================================================
 void ghiLog(const char* msg) {
     FILE* f = fopen("log.txt", "a");
@@ -137,7 +137,7 @@ void ghiLog(const char* msg) {
 }
 
 // =======================================================
-// 📌 8. BACKUP
+//      BACKUP
 // =======================================================
 void backupSach(DanhSachSach dsSach) {
     FILE* f = fopen("backup_sach.txt", "w");
@@ -177,7 +177,7 @@ void backupBanDoc(DanhSachBanDoc dsBD) {
 }
 
 // =======================================================
-// 📌 9. FREE MEMORY (QA)
+//       FREE MEMORY (QA)
 // =======================================================
 void freePhieu(NodePhieuMuon* head) {
     while (head != NULL) {
