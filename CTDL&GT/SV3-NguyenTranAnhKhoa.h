@@ -3,6 +3,8 @@
 
 #include "Structs.h"
 
-int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p);
+int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]);
+
+int traSach(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]);
 
 #endif

@@ -87,7 +87,7 @@ struct Sach {
 // Danh sách đặc (Mảng động) quản lý các đầu sách
 struct DanhSachSach {
     Sach* arr;       // Con trỏ trỏ đến mảng động chứa các sách
-    int capacity;    // Sức chứa tối đa hiện tại của mảng (để cấp phát thêm khi đầy)
+    int SucChuaToiDa;    // Sức chứa tối đa hiện tại của mảng (để cấp phát thêm khi đầy)
     int soLuong;     // Số lượng đầu sách thực tế đang có
 };
 

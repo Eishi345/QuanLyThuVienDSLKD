@@ -1,5 +1,7 @@
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include "Structs.h"
 #include <time.h>
+#define SNM 14
 
 //Lay thoi gian hien tai
 Date layNgayHienTai() {
@@ -14,7 +16,7 @@ Date layNgayHienTai() {
 }
 
 //Tinh han tra sach
-Date tinhHanTra(int soNgayMuon = 14) {
+Date tinhHanTra(int soNgayMuon = SNM) {
 	time_t t = time(NULL) + (soNgayMuon * 24 * 60 * 60);
 	struct tm tm = *localtime(&t);
 
@@ -23,6 +25,27 @@ Date tinhHanTra(int soNgayMuon = 14) {
 	d.thang = tm.tm_mon + 1;
 	d.nam = tm.tm_year + 1900;
 	return d;
+}
+
+int ktraQuaHanTraSach(Date hanTra, Date ngayTra) {
+	struct tm nHT = { 0 };
+	struct tm nT = { 0 };
+
+	nHT.tm_mday = hanTra.ngay;
+	nHT.tm_mon = hanTra.thang - 1;
+	nHT.tm_year = hanTra.nam - 1900;
+
+	nT.tm_mday = ngayTra.ngay;
+	nT.tm_mon = ngayTra.thang - 1;
+	nT.tm_year = ngayTra.nam - 1900;
+
+	time_t hanTra_Sec = mktime(&nHT);
+	time_t ngayTra_Sec = mktime(&nT);
+
+	if (difftime(ngayTra_Sec, hanTra_Sec) > 0) {
+		return 1;
+	}
+	return 0;
 }
 
 //Tao hang cho muon sach
@@ -83,9 +106,9 @@ void taoMaPhieu(char* maPhieu) {
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 
-	sprintf(maPhieu, "PM04%d02%d02%d02%d02%d02%d",
-		tm.tm_year,
-		tm.tm_mon,
+	sprintf(maPhieu, "PM%04d%02d%02d%02d%02d%02d",
+		tm.tm_year + 1900,
+		tm.tm_mon + 1,
 		tm.tm_mday,
 		tm.tm_hour,
 		tm.tm_min,
@@ -102,45 +125,45 @@ int themPhieuMuon(BanDoc& bd, PhieuMuon pmMoi) {
 	}
 
 	newNode->next = bd.dSPhieuMuon;
-	bd.dSPhieuMuon->next = newNode;
+	bd.dSPhieuMuon = newNode;
 	bd.SoSachDangMuon++;
 	return 1;
 }
 
-int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p) {
-	char MaThe[20];
-	char ISBN[20];
+int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]) {
+	//char MaThe[20];
+	//char ISBN[20];
 
-	printf("Nhap ma the ban doc: ");
-	fgets(MaThe, sizeof(MaThe), stdin);
-	MaThe[strcspn(MaThe, "\n")] = 0;
-	printf("Nhap ma sach muon muon: ");
-	fgets(ISBN, sizeof(ISBN), stdin);
-	ISBN[strcspn(ISBN, "\n")] = 0;
+	//printf("Nhap ma the ban doc: ");
+	//fgets(MaThe, sizeof(MaThe), stdin);
+	//MaThe[strcspn(MaThe, "\n")] = 0;
+	//printf("Nhap ma sach muon muon: ");
+	//fgets(ISBN, sizeof(ISBN), stdin);
+	//ISBN[strcspn(ISBN, "\n")] = 0;
 
-	NodeBanDoc* current = p.head;
-	while (current != NULL) {
-		if (!strcmp(current->data.MaThe, MaThe)) break;
-		current = current->next;
+	NodeBanDoc* bd = p.head;
+	while (bd != NULL) {
+		if (!strcmp(bd->data.MaThe, MaThe)) break;
+		bd = bd->next;
 	}
 
-	if (current == NULL) {
+	if (bd == NULL) {
 		printf("Khong tim thay ban doc!\n");
 		return 0;
 	}
 
-	if (!current->data.TrangThai) {
+	if (!bd->data.TrangThai) {
 		printf("The bi khoa hoac ban doc khong con hoat dong.\n");
 		return 0;
 	}
 
-	if (current->data.SoSachDangMuon >= 5) {
+	if (bd->data.SoSachDangMuon >= 5) {
 		printf("Ban doc da dat gioi han muon toi da la 5 cuon!\n");
 		return 0;
 	}
 
 	int indexSach = -1;
-	for (int i = 0; i < dsSach.capacity; i++) {
+	for (int i = 0; i < dsSach.soLuong; i++) {
 		if (!strcmp(ISBN, dsSach.arr[i].ISBN) && dsSach.arr[i].TrangThai == 1) {
 			indexSach = i;
 			break;
@@ -149,6 +172,7 @@ int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p) {
 
 	if (indexSach == -1) {
 		printf("Khong tim thay sach trong kho hoac sach da bi xoa!\n");
+		return 0;
 	}
 
 	Sach& SachMuon = dsSach.arr[indexSach];
@@ -161,7 +185,7 @@ int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p) {
 		pmMoi.HanTra = tinhHanTra();
 		pmMoi.TrangThai = 0;
 
-		if (themPhieuMuon(current->data, pmMoi)) {
+		if (themPhieuMuon(bd->data, pmMoi)) {
 			SachMuon.SoLuongConLai--;
 			printf("Muon sach thanh cong! Ma phieu muon cua ban la: %s", pmMoi.MaPhieu);
 			return 1;
@@ -174,7 +198,7 @@ int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p) {
 		nodeCho->next = NULL;
 
 		if (enQueue(SachMuon.queueCho, nodeCho)) {
-			printf("Sach hien tai da het, ban doc %s da duoc them vao hang cho.\n", current->data.TenBanDoc);
+			printf("Sach hien tai da het, ban doc %s da duoc them vao hang cho.\n", bd->data.TenBanDoc);
 			return 1;
 		}
 		else {
@@ -182,4 +206,72 @@ int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p) {
 			return 0;
 		}
 	}
+}
+
+int traSach(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]) {
+	//char MaThe[20];
+	//char ISBN[20];
+
+	//printf("Nhap ma the ban doc: ");
+	//fgets(MaThe, sizeof(MaThe), stdin);
+	//MaThe[strcspn(MaThe, "\n")] = 0;
+	//printf("Nhap ma sach muon tra: ");
+	//fgets(ISBN, sizeof(ISBN), stdin);
+	//ISBN[strcspn(ISBN, "\n")] = 0;
+
+	NodeBanDoc* bd = p.head;
+	while (bd != NULL) {
+		if (!strcmp(bd->data.MaThe, MaThe)) break;
+		bd = bd->next;
+	}
+
+	if (bd == NULL) {
+		printf("Khong tim thay ban doc!\n");
+		return 0;
+	}
+
+	NodePhieuMuon* pm = bd->data.dSPhieuMuon;
+	while (pm != NULL) {
+		if (!strcmp(pm->data.MaSach, ISBN) && pm->data.TrangThai != 1) {
+			break;
+		}
+		pm = pm->next;
+	}
+
+	if (pm == NULL) {
+		printf("Khong tim thay phieu muon!\n");
+		return 0;
+	}
+
+	int indexSach = -1;
+	for (int i = 0; i < dsSach.soLuong; i++) {
+		if (!strcmp(dsSach.arr[i].ISBN, ISBN)) {
+			indexSach = i;;
+			break;
+		}
+	}
+
+	if (indexSach == -1) {
+		printf("Ma sach sai hoac sach khong ton tai!\n");
+		return 0;
+	}
+
+	Sach& sachHienTai = dsSach.arr[indexSach];
+	pm->data.TrangThai = 1;
+	bd->data.SoSachDangMuon--;
+	sachHienTai.SoLuongConLai++;
+
+	if (ktraQuaHanTraSach(pm->data.HanTra, layNgayHienTai())) {
+		printf("CANH BAO: Ban doc tra sach qua han.\n");
+	}
+	else printf("Ban doc tra sach thanh cong (dung han).\n");
+
+	if (!isEmpty(sachHienTai.queueCho)) {
+		char nguoiMuonMoi[20];
+
+		deQueue(sachHienTai.queueCho, nguoiMuonMoi);
+		muonSach(dsSach, p, nguoiMuonMoi, ISBN);
+		printf("Da cho ban doc co ma %s muon sach.\n", nguoiMuonMoi);
+	}
+	return 1;
 }
