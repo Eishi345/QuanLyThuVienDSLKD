@@ -3,7 +3,7 @@
 #include <time.h>
 #define SNM 14
 
-//Lay thoi gian hien tai
+//Cac ham tinh thoi gian
 Date layNgayHienTai() {
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
@@ -15,7 +15,6 @@ Date layNgayHienTai() {
 	return d;
 }
 
-//Tinh han tra sach
 Date tinhHanTra(int soNgayMuon = SNM) {
 	time_t t = time(NULL) + (soNgayMuon * 24 * 60 * 60);
 	struct tm tm = *localtime(&t);
@@ -48,18 +47,16 @@ int ktraQuaHanTraSach(Date hanTra, Date ngayTra) {
 	return 0;
 }
 
-//Tao hang cho muon sach
+//Cac thao tac tren hang cho
 void initQueueDSLK(QueueChoMuon& q) {
 	q.head = NULL;
 	q.tail = NULL;
 }
 
-//Kiem tra hang cho trong
 int isEmpty(QueueChoMuon& q) {
 	return (q.head == NULL);
 }
 
-//Them vao hang cho
 int enQueue(QueueChoMuon& q, NodeQueue* p) {
 	if (p == NULL) return 0;
 
@@ -73,7 +70,6 @@ int enQueue(QueueChoMuon& q, NodeQueue* p) {
 	return 1;
 }
 
-//Xoa khoi hang cho
 int deQueue(QueueChoMuon& q, char bd[]) {
 	if (isEmpty(q)) return 0;
 
@@ -88,7 +84,7 @@ int deQueue(QueueChoMuon& q, char bd[]) {
 	return 1;
 }
 
-//Muon sach
+//Thao tac muon/tra sach
 NodePhieuMuon* createNodePhieuMuon(PhieuMuon pm) {
 	NodePhieuMuon* newNode = new NodePhieuMuon;
 
