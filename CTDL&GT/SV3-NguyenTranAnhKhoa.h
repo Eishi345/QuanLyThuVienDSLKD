@@ -3,6 +3,8 @@
 
 #include "Structs.h"
 
+void menuConMuonTra(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]);
+
 int muonSach(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]);
 
 int traSach(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]);

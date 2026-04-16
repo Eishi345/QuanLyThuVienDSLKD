@@ -3,6 +3,33 @@
 #include <time.h>
 #define SNM 14
 
+//Menu con
+void menuConMuonTra(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]) {
+	int luachon;
+
+	do {
+		printf("1. Muon sach.\n");
+		printf("2. Tra sach.\n");
+		printf("0. Tro ve.\n");
+		scanf("%d", &luachon);
+		getchar();
+
+		switch (luachon) {
+		case 1: {
+			muonSach(dsSach, p, MaThe, ISBN);
+		} break;
+		case 2: {
+			traSach(dsSach, p, MaThe, ISBN);
+		} break;
+		case 0: {
+
+		} break;
+		default: printf("Lua chon khong hop le.\n");
+		}
+
+	} while (luachon != 0);
+}
+
 //Cac ham tinh thoi gian
 Date layNgayHienTai() {
 	time_t t = time(NULL);

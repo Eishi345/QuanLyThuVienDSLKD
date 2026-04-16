@@ -26,10 +26,10 @@
     <ClCompile Include="SV3-NguyenTranAnhKhoa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SV1_AnhTho.cpp">
+    <ClCompile Include="SV2.TuanVu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SV2.TuanVu.cpp">
+    <ClCompile Include="SV4.PhamDuyKhanh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

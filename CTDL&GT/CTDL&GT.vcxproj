@@ -127,9 +127,9 @@
     <ClInclude Include="SV3-NguyenTranAnhKhoa.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SV1_AnhTho.cpp" />
     <ClCompile Include="SV2.TuanVu.cpp" />
     <ClCompile Include="SV3-NguyenTranAnhKhoa.cpp" />
+    <ClCompile Include="SV4.PhamDuyKhanh.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
