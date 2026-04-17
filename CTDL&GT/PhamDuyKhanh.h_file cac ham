@@ -1,0 +1,13 @@
+void inBanDocQuaHan(DanhSachBanDoc dsBD, Date ngayHienTai);
+int demSoLanMuon(DanhSachBanDoc dsBD, char maSach[]);
+void sortSachTheoMuon(DanhSachSach* dsSach, DanhSachBanDoc dsBD);
+void top10Sach(DanhSachSach dsSach, DanhSachBanDoc dsBD);
+void thongKeTheoTacGia(DanhSachSach dsSach, char tacGia[]);
+void thongKeTheoNXB(DanhSachSach dsSach, char nxb[]);
+void ghiLog(const char* msg);
+void backupSach(DanhSachSach dsSach);
+void backupBanDoc(DanhSachBanDoc dsBD);
+void freePhieu(NodePhieuMuon* head);
+void freeBanDoc(DanhSachBanDoc* dsBD);
+void freeQueue(QueueChoMuon* q);
+void freeSach(DanhSachSach* dsSach);
