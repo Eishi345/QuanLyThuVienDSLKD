@@ -5,7 +5,125 @@
 #include "Structs.h"
 #include <time.h>
 
+void inBanDocQuaHan(DanhSachBanDoc dsBD, Date ngayHienTai);
+int demSoLanMuon(DanhSachBanDoc dsBD, char maSach[]);
+void sortSachTheoMuon(DanhSachSach* dsSach, DanhSachBanDoc dsBD);
+void top10Sach(DanhSachSach dsSach, DanhSachBanDoc dsBD);
+void thongKeTheoTacGia(DanhSachSach dsSach, char tacGia[]);
+void thongKeTheoNXB(DanhSachSach dsSach, char nxb[]);
+void ghiLog(const char* msg);
+void backupSach(DanhSachSach dsSach);
+void backupBanDoc(DanhSachBanDoc dsBD);
+void freePhieu(NodePhieuMuon* head);
+void freeBanDoc(DanhSachBanDoc* dsBD);
+void freeQueue(QueueChoMuon* q);
+void freeSach(DanhSachSach* dsSach);
 
+
+// ================= MENU =================
+void menu() {
+    printf("\n=========== MENU ===========\n");
+    printf("1. In ban doc qua han\n");
+    printf("2. Top 10 sach muon nhieu\n");
+    printf("3. Thong ke theo tac gia\n");
+    printf("4. Thong ke theo NXB\n");
+    printf("5. Ghi log\n");
+    printf("6. Backup du lieu\n");
+    printf("0. Thoat\n");
+    printf("============================\n");
+}
+
+// ================= PROCESS =================
+void process(DanhSachBanDoc dsBanDoc, DanhSachSach dsSach) {
+    int choice;
+    char input[100];
+    Date today;
+
+    do {
+        menu();
+        printf("Chon: ");
+        scanf("%d", &choice);
+        getchar(); 
+
+        switch (choice) {
+
+        case 1:
+            printf("Nhap ngay hien tai (dd mm yyyy): ");
+            scanf("%d %d %d", &today.ngay, &today.thang, &today.nam);
+
+            inBanDocQuaHan(dsBanDoc, today);
+            break;
+
+        case 2:
+            top10Sach(dsSach, dsBanDoc);
+            break;
+
+        case 3:
+            printf("Nhap ten tac gia: ");
+            fgets(input, 100, stdin);
+            input[strcspn(input, "\n")] = 0;
+
+            thongKeTheoTacGia(dsSach, input);
+            break;
+
+        case 4:
+            printf("Nhap ten NXB: ");
+            fgets(input, 100, stdin);
+            input[strcspn(input, "\n")] = 0;
+
+            thongKeTheoNXB(dsSach, input);
+            break;
+
+        case 5:
+            printf("Nhap noi dung log: ");
+            fgets(input, 100, stdin);
+            input[strcspn(input, "\n")] = 0;
+
+            ghiLog(input);
+            printf("Da ghi log!\n");
+            break;
+
+        case 6:
+            backupSach(dsSach);
+            backupBanDoc(dsBanDoc);
+            printf("Da backup du lieu!\n");
+            break;
+
+        case 0:
+            printf("Dang thoat...\n");
+            freeBanDoc(&dsBanDoc);
+            freeSach(&dsSach);
+
+            printf("Da giai phong bo nho!\n");
+            break;
+
+        default:
+            printf("Lua chon khong hop le!\n");
+        }
+
+    } while (choice != 0);
+}
+
+// ================= MAIN =================
+int main() {
+    DanhSachBanDoc dsBanDoc;
+    DanhSachSach dsSach;
+
+    // ===== KHỞI TẠO BAN ĐẦU =====
+    dsBanDoc.head = dsBanDoc.tail = NULL;
+    dsBanDoc.soLuong = 0;
+
+    dsSach.arr = NULL;
+    dsSach.soLuong = 0;
+    dsSach.capacity = 0;
+
+    // 👉 Bạn có thể thêm dữ liệu mẫu ở đây nếu cần
+
+    // ===== CHẠY CHƯƠNG TRÌNH =====
+    process(dsBanDoc, dsSach);
+
+    return 0;
+}
 
 // =======================================================
 //     SO SÁNH NGÀY
