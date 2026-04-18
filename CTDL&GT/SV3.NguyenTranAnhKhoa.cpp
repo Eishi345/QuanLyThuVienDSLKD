@@ -4,7 +4,7 @@
 #define SNM 14
 
 //Menu con
-void menuConMuonTra(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char ISBN[]) {
+void menuConMuonTra(DanhSachSach& dsSach, DanhSachBanDoc& p) {
 	int luachon;
 
 	do {
@@ -16,9 +16,30 @@ void menuConMuonTra(DanhSachSach& dsSach, DanhSachBanDoc& p, char MaThe[], char 
 
 		switch (luachon) {
 		case 1: {
+			char MaThe[20];
+			char ISBN[20];
+
+			printf("Nhap ma the ban doc: ");
+			fgets(MaThe, sizeof(MaThe), stdin);
+			MaThe[strcspn(MaThe, "\n")] = 0;
+			printf("Nhap ma sach muon muon: ");
+			fgets(ISBN, sizeof(ISBN), stdin);
+			ISBN[strcspn(ISBN, "\n")] = 0;
+
 			muonSach(dsSach, p, MaThe, ISBN);
 		} break;
 		case 2: {
+			char MaThe[20];
+			char ISBN[20];
+
+			printf("Nhap ma the ban doc: ");
+			fgets(MaThe, sizeof(MaThe), stdin);
+			MaThe[strcspn(MaThe, "\n")] = 0;
+			printf("Nhap ma sach muon muon: ");
+			fgets(ISBN, sizeof(ISBN), stdin);
+			ISBN[strcspn(ISBN, "\n")] = 0;
+			muonSach(dsSach, p, MaThe, ISBN);
+
 			traSach(dsSach, p, MaThe, ISBN);
 		} break;
 		case 0: {
