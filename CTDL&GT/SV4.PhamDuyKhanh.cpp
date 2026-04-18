@@ -115,7 +115,7 @@ int main() {
 
     dsSach.arr = NULL;
     dsSach.soLuong = 0;
-    dsSach.capacity = 0;
+    dsSach.SucChuaToiDa = 0;
 
     // 👉 Bạn có thể thêm dữ liệu mẫu ở đây nếu cần
 
