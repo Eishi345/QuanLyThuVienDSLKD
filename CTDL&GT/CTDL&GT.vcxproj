@@ -124,12 +124,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Structs.h" />
-    <ClInclude Include="SV3-NguyenTranAnhKhoa.h" />
+    <ClInclude Include="SV3.NguyenTranAnhKhoa.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SV2.TuanVu.cpp" />
-    <ClCompile Include="SV3-NguyenTranAnhKhoa.cpp" />
+    <ClCompile Include="SV3.NguyenTranAnhKhoa.cpp" />
     <ClCompile Include="SV4.PhamDuyKhanh.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SV4.PhamDuyKhanh.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

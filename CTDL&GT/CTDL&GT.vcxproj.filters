@@ -18,12 +18,12 @@
     <ClInclude Include="Structs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SV3-NguyenTranAnhKhoa.h">
+    <ClInclude Include="SV3.NguyenTranAnhKhoa.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SV3-NguyenTranAnhKhoa.cpp">
+    <ClCompile Include="SV3.NguyenTranAnhKhoa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SV2.TuanVu.cpp">
@@ -32,5 +32,10 @@
     <ClCompile Include="SV4.PhamDuyKhanh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SV4.PhamDuyKhanh.h">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
